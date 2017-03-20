@@ -6,8 +6,17 @@ package com.labs.rucker.xkcdbrowser;
 
 public class DataAdapter {
 
+    private String currentTitle;
     private String imageView;
     private int currentNum;
+
+    public String getCurrentTitle() {
+        return currentTitle;
+    }
+
+    public void setCurrentTitle(String currentTitle) {
+        this.currentTitle = currentTitle;
+    }
 
 
 

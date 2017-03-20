@@ -95,17 +95,25 @@ public class MainActivity extends AppCompatActivity {
                          String imgComic = response.body().getImg();
                          int numComic = response.body().getNum();
                          String numString = String.valueOf(numComic);
+                         String titleComic = response.body().getTitle();
                          String altComic = response.body().getAlt(); //alternate text
                          //Adapter
+                         POJO pojos = new POJO();
+                         String titlePojo = pojos.getTitle();
+
                          DataAdapter dataAdapter = new DataAdapter();
+                         dataAdapter.setCurrentTitle(titleComic);
                          dataAdapter.setImageView(imgComic);
                          dataAdapter.setCurrentNum(numComic);
                          //VIEW
+                         TextView title = (TextView) findViewById(R.id.title_view);
                          ImageView imageView = (ImageView) findViewById(R.id.imageView);
                          TextView numView = (TextView) findViewById(R.id.comic_number);
+                         title.setText(titleComic);
                          numView.setText(numString);
                          Glide.with(getApplicationContext().getApplicationContext()).load(imgComic).into(imageView);
-                         Log.d("Success", imgComic);
+                        // Log.d("Success", titlePojo);
+                        // Log.d("Success", imgComic);
                      }
 
                      @Override
