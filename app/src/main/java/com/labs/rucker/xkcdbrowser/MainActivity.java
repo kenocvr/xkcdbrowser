@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private POJO comic;
     private ImageView mImageView;
     private Button mbtnRandom;
+    private Button mbtnCurrent;
     private Matrix matrix = new Matrix();
     private ScaleGestureDetector scaleGestureDetector;
     private String num = "0";
@@ -46,17 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
     private void initViews(){
 
         DataAdapter dataView = new DataAdapter();
 //        ComicManager comicAdapter = new ComicManager();
-
         dataView.getImageView();
-
-
 
         getApi();
 
@@ -73,7 +68,42 @@ public class MainActivity extends AppCompatActivity {
 
      //   //API call/////
        final RestApi service = retrofit.create(RestApi.class);
+         mbtnCurrent = (Button) findViewById(R.id.button_current);
+         mbtnCurrent.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Call<POJO> call = service.getJSONcurrent();
+                 call.enqueue(new Callback<POJO>() {
+                     @Override
+                     public void onResponse(Response<POJO> response, Retrofit retrofit) {
+                         //Response
+                         String imgComic = response.body().getImg();
+                         int numComic = response.body().getNum();
+                         String numString = String.valueOf(numComic);
+                         String titleComic = response.body().getTitle();
+                         String altComic = response.body().getAlt(); //alternate text
+                         //Adapter
+                         DataAdapter dataAdapter = new DataAdapter();
+                         dataAdapter.setCurrentTitle(titleComic);
+                         dataAdapter.setImageView(imgComic);
+                         dataAdapter.setCurrentNum(numComic);
+                         //VIEW
+                         TextView title = (TextView) findViewById(R.id.title_view);
+                         ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                         TextView numView = (TextView) findViewById(R.id.comic_number);
+                         title.setText(titleComic);
+                         numView.setText(numString);
+                         Glide.with(getApplicationContext().getApplicationContext()).load(imgComic).into(imageView);
 
+                     }
+
+                     @Override
+                     public void onFailure(Throwable t) {
+
+                     }
+                 });
+             }
+         });
          mbtnRandom = (Button) findViewById(R.id.button_random);
          mbtnRandom.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -98,9 +128,6 @@ public class MainActivity extends AppCompatActivity {
                          String titleComic = response.body().getTitle();
                          String altComic = response.body().getAlt(); //alternate text
                          //Adapter
-                         POJO pojos = new POJO();
-                         String titlePojo = pojos.getTitle();
-
                          DataAdapter dataAdapter = new DataAdapter();
                          dataAdapter.setCurrentTitle(titleComic);
                          dataAdapter.setImageView(imgComic);
@@ -112,8 +139,7 @@ public class MainActivity extends AppCompatActivity {
                          title.setText(titleComic);
                          numView.setText(numString);
                          Glide.with(getApplicationContext().getApplicationContext()).load(imgComic).into(imageView);
-                        // Log.d("Success", titlePojo);
-                        // Log.d("Success", imgComic);
+
                      }
 
                      @Override
