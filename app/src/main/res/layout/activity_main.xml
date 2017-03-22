@@ -7,16 +7,28 @@
                                              android:layout_height="match_parent">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="371dp"
-        android:layout_height="399dp"
-        app:layout_constraintHorizontal_bias="0.538"
+    <HorizontalScrollView
+        android:layout_width="0dp"
+        android:layout_height="380dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="30dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/title_view"
+        >
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="matrix"
+            app:srcCompat="@drawable/vomitinglrg"
+            />
+    </HorizontalScrollView>
 
     <Button
         android:id="@+id/button_random"
@@ -26,7 +38,8 @@
         android:layout_marginRight="148dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="148dp"/>
 
     <TextView
         android:id="@+id/comic_number"
@@ -39,7 +52,8 @@
         app:layout_constraintBottom_toTopOf="@+id/button_random"
         android:layout_marginLeft="146dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.333"/>
+        app:layout_constraintVertical_bias="0.333"
+        android:layout_marginStart="146dp"/>
 
     <TextView
         android:id="@+id/title_view"
@@ -52,7 +66,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintVertical_bias="1.0"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"/>
 
     <Button
         android:id="@+id/button_current"
@@ -63,7 +78,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/button_random"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/comic_number"/>
+        app:layout_constraintTop_toBottomOf="@+id/comic_number"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
 </android.support.constraint.ConstraintLayout>

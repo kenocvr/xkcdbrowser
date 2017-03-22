@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                          TextView numView = (TextView) findViewById(R.id.comic_number);
                          title.setText(titleComic);
                          numView.setText(numString);
-                         Glide.with(getApplicationContext().getApplicationContext()).load(imgComic).into(imageView);
+                         Glide.with(getApplicationContext()).load(imgComic).into(imageView);
 
                      }
 
