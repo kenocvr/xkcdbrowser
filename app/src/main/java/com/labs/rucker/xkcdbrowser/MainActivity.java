@@ -1,5 +1,10 @@
 package com.labs.rucker.xkcdbrowser;
 
+
+/**
+ * Created by Carlos on 3/19/2017.
+ */
+
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
