@@ -7,11 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.Random;
 
@@ -23,6 +22,7 @@ import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
+    public WebView mWebView;
     private RecyclerView recyclerView;
     private POJO comic;
     private ImageView mImageView;
@@ -89,11 +89,14 @@ public class MainActivity extends AppCompatActivity {
                          dataAdapter.setCurrentNum(numComic);
                          //VIEW
                          TextView title = (TextView) findViewById(R.id.title_view);
-                         ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                         mWebView = (WebView) findViewById(R.id.web_view);
+                         mWebView.loadUrl(imgComic);
+
+                         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
                          TextView numView = (TextView) findViewById(R.id.comic_number);
                          title.setText(titleComic);
                          numView.setText(numString);
-                         Glide.with(getApplicationContext()).load(imgComic).into(imageView);
+                        // Glide.with(getApplicationContext()).load(imgComic).into(imageView);
 
                      }
 
@@ -134,11 +137,14 @@ public class MainActivity extends AppCompatActivity {
                          dataAdapter.setCurrentNum(numComic);
                          //VIEW
                          TextView title = (TextView) findViewById(R.id.title_view);
-                         ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                         mWebView = (WebView) findViewById(R.id.web_view);
+                         mWebView.loadUrl(imgComic);
+
+                        // ImageView imageView = (ImageView) findViewById(R.id.imageView);
                          TextView numView = (TextView) findViewById(R.id.comic_number);
                          title.setText(titleComic);
                          numView.setText(numString);
-                         Glide.with(getApplicationContext().getApplicationContext()).load(imgComic).into(imageView);
+                        // Glide.with(getApplicationContext().getApplicationContext()).load(imgComic).into(imageView);
 
                      }
 
