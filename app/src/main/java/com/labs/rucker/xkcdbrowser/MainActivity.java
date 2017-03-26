@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -27,6 +28,7 @@ import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button mButtonAlternate;
     public WebView mWebView;
     private RecyclerView recyclerView;
     private POJO comic;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
      void getApi(){
     //    //RETROFIT BUILDER////
-        Retrofit retrofit = new Retrofit.Builder()
+        final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -84,9 +86,10 @@ public class MainActivity extends AppCompatActivity {
                          //Response
                          String imgComic = response.body().getImg();
                          int numComic = response.body().getNum();
+                         String altComic = response.body().getAlt();
                          String numString = String.valueOf(numComic);
                          String titleComic = response.body().getTitle();
-                         String altComic = response.body().getAlt(); //alternate text
+
                          //Adapter
                          DataAdapter dataAdapter = new DataAdapter();
                          dataAdapter.setCurrentTitle(titleComic);
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
              public void onClick(View v) {
                  Random rand = new Random();
 
+
                  int  n = rand.nextInt(615) + 1;
                  String nString = String.valueOf(n);
                  ComicManager randAdapter = new ComicManager();
@@ -132,11 +136,16 @@ public class MainActivity extends AppCompatActivity {
                          //Response
                          String imgComic = response.body().getImg();
                          int numComic = response.body().getNum();
+                         String altComic = response.body().getAlt();
+
                          String numString = String.valueOf(numComic);
                          String titleComic = response.body().getTitle();
-                         String altComic = response.body().getAlt(); //alternate text
+
                          //Adapter
+                         POJO pojo = new POJO();
+                         pojo.setAlt(altComic);
                          DataAdapter dataAdapter = new DataAdapter();
+                         dataAdapter.setAltText(altComic);
                          dataAdapter.setCurrentTitle(titleComic);
                          dataAdapter.setImageView(imgComic);
                          dataAdapter.setCurrentNum(numComic);
@@ -144,6 +153,10 @@ public class MainActivity extends AppCompatActivity {
                          TextView title = (TextView) findViewById(R.id.title_view);
                          mWebView = (WebView) findViewById(R.id.web_view);
                          mWebView.loadUrl(imgComic);
+
+                         String altText = dataAdapter.getAltText();
+                         Toast toast = Toast.makeText(getApplicationContext(), altText, Toast.LENGTH_LONG);
+                         toast.show();
 
                         // ImageView imageView = (ImageView) findViewById(R.id.imageView);
                          TextView numView = (TextView) findViewById(R.id.comic_number);
@@ -162,6 +175,8 @@ public class MainActivity extends AppCompatActivity {
                  });
              }
          });
+
+
 
 
 

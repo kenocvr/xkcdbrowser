@@ -6,6 +6,17 @@ package com.labs.rucker.xkcdbrowser;
 
 public class DataAdapter {
 
+    private String altText;
+
+    public String getAltText() {
+        return altText;
+    }
+
+    public void setAltText(String altText) {
+        this.altText = altText;
+    }
+
+
     private String currentTitle;
     private String imageView;
     private int currentNum;
@@ -17,7 +28,6 @@ public class DataAdapter {
     public void setCurrentTitle(String currentTitle) {
         this.currentTitle = currentTitle;
     }
-
 
 
     public int getCurrentNum() {
@@ -37,6 +47,5 @@ public class DataAdapter {
     }
 
 
-
-    }
+}
 
