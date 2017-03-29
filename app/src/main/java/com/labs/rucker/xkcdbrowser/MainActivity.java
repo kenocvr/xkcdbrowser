@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
                          String imgComic = response.body().getImg();
                          int numComic = response.body().getNum();
                          String altComic = response.body().getAlt();
-
                          String numString = String.valueOf(numComic);
                          String titleComic = response.body().getTitle();
 
@@ -149,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                          dataAdapter.setCurrentTitle(titleComic);
                          dataAdapter.setImageView(imgComic);
                          dataAdapter.setCurrentNum(numComic);
+
                          //VIEW
                          TextView title = (TextView) findViewById(R.id.title_view);
                          mWebView = (WebView) findViewById(R.id.web_view);
