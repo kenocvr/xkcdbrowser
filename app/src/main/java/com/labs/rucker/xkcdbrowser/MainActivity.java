@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private Button mbtnRandom;
     private Button mbtnCurrent;
     private Matrix matrix = new Matrix();
-    private ScaleGestureDetector scaleGestureDetector;
     private String num = "0";
 
     String url = "https://xkcd.com";
@@ -86,10 +84,19 @@ public class MainActivity extends AppCompatActivity {
                          //Response
                          String imgComic = response.body().getImg();
                          int numComic = response.body().getNum();
-                         String altComic = response.body().getAlt();
+                         final String altComic = response.body().getAlt();
                          String numString = String.valueOf(numComic);
                          String titleComic = response.body().getTitle();
 
+                         Button altTextBtn = (Button) findViewById(R.id.alt_button);
+                         altTextBtn.setOnClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
+                                 Toast toast = Toast.makeText(getApplicationContext(), altComic, Toast.LENGTH_LONG);
+                                 toast.show();
+
+                             }
+                         });
                          //Adapter
                          DataAdapter dataAdapter = new DataAdapter();
                          dataAdapter.setCurrentTitle(titleComic);
@@ -136,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                          //Response
                          String imgComic = response.body().getImg();
                          int numComic = response.body().getNum();
-                         String altComic = response.body().getAlt();
+                         final String altComic = response.body().getAlt();
                          String numString = String.valueOf(numComic);
                          String titleComic = response.body().getTitle();
 
@@ -153,6 +160,16 @@ public class MainActivity extends AppCompatActivity {
                          TextView title = (TextView) findViewById(R.id.title_view);
                          mWebView = (WebView) findViewById(R.id.web_view);
                          mWebView.loadUrl(imgComic);
+
+                         Button altTextBtn = (Button) findViewById(R.id.alt_button);
+                         altTextBtn.setOnClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
+                                 Toast toast = Toast.makeText(getApplicationContext(), altComic, Toast.LENGTH_LONG);
+                                 toast.show();
+
+                             }
+                         });
 
                          String altText = dataAdapter.getAltText();
                          Toast toast = Toast.makeText(getApplicationContext(), altText, Toast.LENGTH_LONG);

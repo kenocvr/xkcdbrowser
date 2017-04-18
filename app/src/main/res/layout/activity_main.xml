@@ -14,14 +14,15 @@
         android:layout_margin="0dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="148dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="148dp"
         android:text="@string/random"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"/>
 
     <TextView
         android:id="@+id/comic_number"
@@ -32,7 +33,10 @@
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline5"
-        tools:layout_editor_absoluteY="426dp"/>
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/alt_button"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <TextView
         android:id="@+id/title_view"
@@ -74,46 +78,72 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08023483"/>
+        app:layout_constraintGuide_percent="0.08023483"
+        tools:layout_editor_absoluteY="41dp"
+        tools:layout_editor_absoluteX="0dp"/>
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline2"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8258317"/>
+        app:layout_constraintGuide_percent="0.8258317"
+        tools:layout_editor_absoluteY="422dp"
+        tools:layout_editor_absoluteX="0dp"/>
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline3"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8590998"/>
+        app:layout_constraintGuide_percent="0.8590998"
+        tools:layout_editor_absoluteY="439dp"
+        tools:layout_editor_absoluteX="0dp"/>
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline4"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.66"/>
+        app:layout_constraintGuide_percent="0.66"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="238dp"/>
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline5"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33"/>
+        app:layout_constraintGuide_percent="0.33"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="119dp"/>
 
     <WebView
         android:id="@+id/web_view"
         android:layout_width="0dp"
         android:layout_height="377dp"
         app:layout_constraintBottom_toTopOf="@+id/comic_number"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_view"
         app:layout_constraintVertical_bias="1.0"
         />
+
+    <Button
+        android:id="@+id/alt_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Alternate Text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+        app:layout_constraintRight_toLeftOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"/>
 
 </android.support.constraint.ConstraintLayout>
