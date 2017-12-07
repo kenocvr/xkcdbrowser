@@ -7,6 +7,7 @@ package com.labs.rucker.xkcdbrowser;
 
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Matrix matrix = new Matrix();
     private String num = "0";
 
-    String url = "https://xkcd.com";
+    public final String URL = "https://xkcd.com";
 
 
 
@@ -55,28 +56,63 @@ public class MainActivity extends AppCompatActivity {
     private void initViews(){
 
         DataAdapter dataView = new DataAdapter();
-//        ComicManager comicAdapter = new ComicManager();
         dataView.getImageView();
 
         getApi();
+
+
 
     }
 
 
      void getApi(){
+
+         // Auto load current comic on start //
+         ApiCall initialCall = new ApiCall();
+         initialCall.apiCall();
+
     //    //RETROFIT BUILDER////
-        final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+       final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
-     //   //API call/////
+//     //   //API call/////
        final RestApi service = retrofit.create(RestApi.class);
+
          mbtnCurrent = (Button) findViewById(R.id.button_current);
+
+         mbtnCurrent.setPressed(true);
+         mbtnCurrent.invalidate();
+         mbtnCurrent.performClick();
+         Handler handler = new Handler();
+         Runnable r = new Runnable() {
+             public void run() {
+                 mbtnCurrent.setPressed(true);
+                 mbtnCurrent.invalidate();
+                 mbtnCurrent.performClick();
+
+                 Handler handler1 = new Handler();
+                 Runnable r1 = new Runnable() {
+                     public void run() {
+                         mbtnCurrent.setPressed(false);
+                         mbtnCurrent.invalidate();
+
+                     }
+                 };
+                 handler1.postDelayed(r1, 500);
+
+             }
+         };
+         handler.postDelayed(r, 500);
+
          mbtnCurrent.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+
+
+
                  Call<POJO> call = service.getJSONcurrent();
                  call.enqueue(new Callback<POJO>() {
                      @Override
@@ -97,11 +133,13 @@ public class MainActivity extends AppCompatActivity {
 
                              }
                          });
+
                          //Adapter
                          DataAdapter dataAdapter = new DataAdapter();
                          dataAdapter.setCurrentTitle(titleComic);
                          dataAdapter.setImageView(imgComic);
                          dataAdapter.setCurrentNum(numComic);
+
                          //VIEW
                          TextView title = (TextView) findViewById(R.id.title_view);
                          mWebView = (WebView) findViewById(R.id.web_view);
@@ -129,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                  Random rand = new Random();
 
 
-                 int  n = rand.nextInt(615) + 1;
+                 int n = rand.nextInt(615) + 1;
                  String nString = String.valueOf(n);
                  ComicManager randAdapter = new ComicManager();
                  randAdapter.setRandNum(nString);
