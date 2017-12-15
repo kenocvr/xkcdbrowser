@@ -5,16 +5,13 @@ package com.labs.rucker.xkcdbrowser;
  * Created by Carlos on 3/19/2017.
  */
 
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,62 +24,37 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Button mButtonAlternate;
     public WebView mWebView;
-    private RecyclerView recyclerView;
-    private POJO comic;
-    private ImageView mImageView;
     private Button mbtnRandom;
     private Button mbtnCurrent;
-    private Matrix matrix = new Matrix();
-    private String num = "0";
 
     public final String URL = "https://xkcd.com";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initViews();
-
     }
-
-
 
     private void initViews(){
-
         DataAdapter dataView = new DataAdapter();
         dataView.getImageView();
-
         getApi();
-
-
-
     }
 
-
+    // Auto load current comic on start
      void getApi(){
-
-         // Auto load current comic on start //
          ApiCall initialCall = new ApiCall();
          initialCall.apiCall();
-
-    //    //RETROFIT BUILDER////
+        //RETROFIT BUILDER
        final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
-
-//     //   //API call/////
+          //API call
        final RestApi service = retrofit.create(RestApi.class);
-
          mbtnCurrent = (Button) findViewById(R.id.button_current);
-
          mbtnCurrent.setPressed(true);
          mbtnCurrent.invalidate();
          mbtnCurrent.performClick();
@@ -92,13 +64,11 @@ public class MainActivity extends AppCompatActivity {
                  mbtnCurrent.setPressed(true);
                  mbtnCurrent.invalidate();
                  mbtnCurrent.performClick();
-
                  Handler handler1 = new Handler();
                  Runnable r1 = new Runnable() {
                      public void run() {
                          mbtnCurrent.setPressed(false);
                          mbtnCurrent.invalidate();
-
                      }
                  };
                  handler1.postDelayed(r1, 500);
@@ -106,13 +76,9 @@ public class MainActivity extends AppCompatActivity {
              }
          };
          handler.postDelayed(r, 500);
-
          mbtnCurrent.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-
-
-
                  Call<POJO> call = service.getJSONcurrent();
                  call.enqueue(new Callback<POJO>() {
                      @Override
@@ -123,34 +89,26 @@ public class MainActivity extends AppCompatActivity {
                          final String altComic = response.body().getAlt();
                          String numString = String.valueOf(numComic);
                          String titleComic = response.body().getTitle();
-
                          Button altTextBtn = (Button) findViewById(R.id.alt_button);
                          altTextBtn.setOnClickListener(new View.OnClickListener() {
                              @Override
                              public void onClick(View v) {
                                  Toast toast = Toast.makeText(getApplicationContext(), altComic, Toast.LENGTH_LONG);
                                  toast.show();
-
                              }
                          });
-
                          //Adapter
                          DataAdapter dataAdapter = new DataAdapter();
                          dataAdapter.setCurrentTitle(titleComic);
                          dataAdapter.setImageView(imgComic);
                          dataAdapter.setCurrentNum(numComic);
-
                          //VIEW
                          TextView title = (TextView) findViewById(R.id.title_view);
                          mWebView = (WebView) findViewById(R.id.web_view);
                          mWebView.loadUrl(imgComic);
-
-                         //ImageView imageView = (ImageView) findViewById(R.id.imageView);
                          TextView numView = (TextView) findViewById(R.id.comic_number);
                          title.setText(titleComic);
                          numView.setText(numString);
-                        // Glide.with(getApplicationContext()).load(imgComic).into(imageView);
-
                      }
 
                      @Override
@@ -193,32 +151,25 @@ public class MainActivity extends AppCompatActivity {
                          dataAdapter.setCurrentTitle(titleComic);
                          dataAdapter.setImageView(imgComic);
                          dataAdapter.setCurrentNum(numComic);
-
                          //VIEW
                          TextView title = (TextView) findViewById(R.id.title_view);
                          mWebView = (WebView) findViewById(R.id.web_view);
                          mWebView.loadUrl(imgComic);
-
                          Button altTextBtn = (Button) findViewById(R.id.alt_button);
                          altTextBtn.setOnClickListener(new View.OnClickListener() {
                              @Override
                              public void onClick(View v) {
                                  Toast toast = Toast.makeText(getApplicationContext(), altComic, Toast.LENGTH_LONG);
                                  toast.show();
-
                              }
                          });
 
                          String altText = dataAdapter.getAltText();
                          Toast toast = Toast.makeText(getApplicationContext(), altText, Toast.LENGTH_LONG);
                          toast.show();
-
-                        // ImageView imageView = (ImageView) findViewById(R.id.imageView);
                          TextView numView = (TextView) findViewById(R.id.comic_number);
                          title.setText(titleComic);
                          numView.setText(numString);
-                        // Glide.with(getApplicationContext().getApplicationContext()).load(imgComic).into(imageView);
-
                      }
 
                      @Override
